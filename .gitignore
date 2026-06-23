@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+notebooks/.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Anaconda / local env
+anaconda_projects/
+
+# Model heavy files (optional keep ON if you want push)
+# *.h5  (ONLY uncomment if repo too heavy)
+
+# system files
+.DS_Store
+
+# test/debug files (optional)
+test_api.py
+
+# images (optional)
+eight.png
