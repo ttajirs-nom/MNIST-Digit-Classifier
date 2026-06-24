@@ -3,9 +3,8 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 
-# Load model
-# model = load_model("models/mnist_ann_model.h5")
-st.write("Model loading bypassed successfully")
+# Load trained model
+model = load_model("models/mnist_model_v2.keras")
 
 st.title("MNIST Digit Classifier (ANN)")
 st.write("Upload a handwritten digit image (0–9)")
@@ -21,6 +20,7 @@ if uploaded_file is not None:
 
     st.image(image, caption="Uploaded Image", width=250)
 
+    # Preprocessing
     image = image.convert("L")
     image = image.resize((28, 28))
 
@@ -29,9 +29,11 @@ if uploaded_file is not None:
     # Invert colors for MNIST
     img_array = 255 - img_array
 
+    # Normalize
     img_array = img_array / 255.0
 
-    # Flatten to 784 features
+    # Flatten and reshape
+    img_array = img_array.flatten()
     img_array = img_array.reshape(1, 784)
 
     if st.button("Predict Digit"):
