@@ -5,7 +5,7 @@ from tensorflow.keras.models import load_model
 
 # Load model safely
 try:
-    model = load_model("models/test_tf215.h5")
+    model = load_model("models/streamlit_compatible.h5")
     model_loaded = True
 except Exception as e:
     model_loaded = False
@@ -15,9 +15,9 @@ st.title("MNIST Digit Classifier (ANN)")
 st.write("Upload a handwritten digit image (0–9)")
 
 if model_loaded:
-    st.success("Model loaded successfully")
+    st.success("✅ Model loaded successfully")
 else:
-    st.error("Model failed to load")
+    st.error("❌ Model failed to load")
     st.code(model_error)
 
 uploaded_file = st.file_uploader(
@@ -31,18 +31,21 @@ if uploaded_file is not None:
 
     st.image(image, caption="Uploaded Image", width=250)
 
+    # Preprocessing
     image = image.convert("L")
-    image = image.resize((28,28))
+    image = image.resize((28, 28))
 
     img_array = np.array(image)
 
-    # MNIST inversion
+    # Invert colors for MNIST
     img_array = 255 - img_array
 
+    # Normalize
     img_array = img_array / 255.0
 
+    # Flatten and reshape
     img_array = img_array.flatten()
-    img_array = img_array.reshape(1,784)
+    img_array = img_array.reshape(1, 784)
 
     if st.button("Predict Digit"):
 
@@ -50,7 +53,7 @@ if uploaded_file is not None:
             st.error("Prediction unavailable because model did not load.")
         else:
 
-            prediction = model.predict(img_array)
+            prediction = model.predict(img_array, verbose=0)
 
             digit = np.argmax(prediction)
             confidence = np.max(prediction) * 100
