@@ -4,7 +4,8 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 # Load model
-model = load_model("models/mnist_ann_model.h5")
+# model = load_model("models/mnist_ann_model.h5")
+st.write("Model loading bypassed successfully")
 
 st.title("MNIST Digit Classifier (ANN)")
 st.write("Upload a handwritten digit image (0–9)")
