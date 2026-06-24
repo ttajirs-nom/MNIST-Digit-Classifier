@@ -56,7 +56,7 @@ if uploaded_file is not None:
 
     img_array = img_array / 255.0
 
-    img_array = img_array.reshape(1, 784)
+    img_array = img_array.reshape(1, 28, 28)
 
     if st.button("Predict Digit"):
 
